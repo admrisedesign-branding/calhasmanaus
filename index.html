@@ -13,31 +13,6 @@
 <meta property="og:description" content="Proteja sua casa contra infiltrações. Orçamento grátis em até 24h no WhatsApp.">
 <meta property="og:url" content="https://calhasmanaus.com.br/"><meta property="og:image" content="assets/logo-full.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"RoofingContractor","name":"Calhas Manaus","description":"Especialistas em calhas, rufos e telhados metálicos em Manaus.","telephone":"+5592984813748","priceRange":"$$","areaServed":["Manaus","Iranduba","Manacapuru","Itacoatiara"],"address":{"@type":"PostalAddress","addressLocality":"Manaus","addressRegion":"AM","addressCountry":"BR"},"sameAs":["https://www.instagram.com/calhasmanaus/"],"openingHours":"Mo-Sa 08:00-18:00"}
-function goToForm(){ if(isCaptured()){ window.open(savedWa(),"_blank"); } else { showStep(1); } }
-function openServiceForm(svc){ if(svc){preselect('servico',svc);} showStep(2); }
-
-/* Header muda de cor ao rolar */
-(function(){var nav=document.querySelector('nav');if(!nav)return;var f=function(){if(window.scrollY>40){nav.classList.add('scrolled');}else{nav.classList.remove('scrolled');}};window.addEventListener('scroll',f,{passive:true});f();})();
-/* Carrossel lateral com dots (mobile) */
-function initCarousels(){
-  if(!window.matchMedia('(max-width:768px)').matches) return;
-  ['.produtos-grid','.pilares-grid','.depoimentos-grid','.mats-grid'].forEach(function(sel){
-    var grid=document.querySelector(sel); if(!grid||grid.dataset.car) return; grid.dataset.car='1';
-    var kids=grid.children; if(kids.length<2) return;
-    var dots=document.createElement('div'); dots.className='car-dots';
-    for(var i=0;i<kids.length;i++){ (function(i){ var b=document.createElement('button'); if(i===0)b.className='on';
-      b.setAttribute('aria-label','Ir para item '+(i+1));
-      b.addEventListener('click',function(){ kids[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'}); });
-      dots.appendChild(b); })(i); }
-    grid.parentNode.insertBefore(dots, grid.nextSibling);
-    var update=function(){ var center=grid.scrollLeft+grid.clientWidth/2, idx=0, best=1e9, i, k, kc, d;
-      for(i=0;i<kids.length;i++){ k=kids[i]; kc=k.offsetLeft+k.offsetWidth/2; d=Math.abs(kc-center); if(d<best){best=d;idx=i;} }
-      var bs=dots.children; for(i=0;i<bs.length;i++){ bs[i].className=(i===idx?'on':''); } };
-    grid.addEventListener('scroll',function(){ window.requestAnimationFrame(update); },{passive:true});
-  });
-}
-initCarousels();
-window.addEventListener('orientationchange',function(){ setTimeout(initCarousels,300); });
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3147,6 +3122,33 @@ function submitForm(){
   document.getElementById('whatsappLink').href=waLink(msg);
   window.open(waLink(msg),'_blank');
 }
+
+/* ---- movido do ld+json (corrigido) ---- */
+function goToForm(){ if(isCaptured()){ window.open(savedWa(),"_blank"); } else { showStep(1); } }
+function openServiceForm(svc){ if(svc){preselect('servico',svc);} showStep(2); }
+
+/* Header muda de cor ao rolar */
+(function(){var nav=document.querySelector('nav');if(!nav)return;var f=function(){if(window.scrollY>40){nav.classList.add('scrolled');}else{nav.classList.remove('scrolled');}};window.addEventListener('scroll',f,{passive:true});f();})();
+/* Carrossel lateral com dots (mobile) */
+function initCarousels(){
+  if(!window.matchMedia('(max-width:768px)').matches) return;
+  ['.produtos-grid','.pilares-grid','.depoimentos-grid','.mats-grid'].forEach(function(sel){
+    var grid=document.querySelector(sel); if(!grid||grid.dataset.car) return; grid.dataset.car='1';
+    var kids=grid.children; if(kids.length<2) return;
+    var dots=document.createElement('div'); dots.className='car-dots';
+    for(var i=0;i<kids.length;i++){ (function(i){ var b=document.createElement('button'); if(i===0)b.className='on';
+      b.setAttribute('aria-label','Ir para item '+(i+1));
+      b.addEventListener('click',function(){ kids[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'}); });
+      dots.appendChild(b); })(i); }
+    grid.parentNode.insertBefore(dots, grid.nextSibling);
+    var update=function(){ var center=grid.scrollLeft+grid.clientWidth/2, idx=0, best=1e9, i, k, kc, d;
+      for(i=0;i<kids.length;i++){ k=kids[i]; kc=k.offsetLeft+k.offsetWidth/2; d=Math.abs(kc-center); if(d<best){best=d;idx=i;} }
+      var bs=dots.children; for(i=0;i<bs.length;i++){ bs[i].className=(i===idx?'on':''); } };
+    grid.addEventListener('scroll',function(){ window.requestAnimationFrame(update); },{passive:true});
+  });
+}
+initCarousels();
+window.addEventListener('orientationchange',function(){ setTimeout(initCarousels,300); });
 </script>
 </body>
 </html>
