@@ -11,7 +11,10 @@
 <meta property="og:title" content="Calhas Manaus | Calhas, Rufos e Telhados Metálicos">
 <meta property="og:description" content="Proteja sua casa contra infiltrações. Orçamento grátis em até 24h no WhatsApp.">
 <meta property="og:url" content="https://calhasmanaus.com.br/"><meta property="og:image" content="images/og-calhas.jpg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"RoofingContractor","name":"Calhas Manaus","description":"Especialistas em calhas, rufos e telhados metálicos em Manaus.","telephone":"+5592984813748","priceRange":"$$","areaServed":["Manaus","Iranduba","Manacapuru","Itacoatiara"],"address":{"@type":"PostalAddress","addressLocality":"Manaus","addressRegion":"AM","addressCountry":"BR"},"sameAs":["https://www.instagram.com/calhasmanaus/"],"openingHours":"Mo-Sa 08:00-18:00"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"RoofingContractor","name":"Calhas Manaus","description":"Especialistas em calhas, rufos e telhados metálicos em Manaus.","telephone":"+5592984813748","priceRange":"$$","areaServed":["Manaus","Iranduba","Manacapuru","Itacoatiara"],"address":{"@type":"PostalAddress","addressLocality":"Manaus","addressRegion":"AM","addressCountry":"BR"},"sameAs":["https://www.instagram.com/calhasmanaus/"],"openingHours":"Mo-Sa 08:00-18:00"}
+function goToForm(){ showStep(1); }
+function openServiceForm(svc){ if(svc){preselect('servico',svc);} showStep(2); }
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
@@ -2566,6 +2569,19 @@
     .hero-video{display:none !important;}
     .hero-mobile-poster{display:block;background-image:linear-gradient(rgba(8,12,30,.35),rgba(8,10,20,.35)),url('assets/hero-poster.jpg');background-size:cover;background-position:center;}
   }
+
+  /* ===== MELHORIAS (teste) ===== */
+  .hero{ aspect-ratio:16/9; min-height:0 !important; padding:96px 0 26px !important; }
+  body.has-topbar .hero{ padding-top:108px !important; }
+  @media(max-width:768px){
+    .hero{ aspect-ratio:auto; min-height:auto !important; padding:120px 0 46px !important; }
+    body.has-topbar .hero{ padding-top:128px !important; }
+  }
+  .express-sec{ background:var(--black-soft); padding:30px 0 42px; border-bottom:1px solid var(--border); }
+  .express-sec .hero-miniform-wrap{ margin-top:0; }
+  .produto-card .produto-img{ display:none !important; }
+  .svc-ic{ font-size:30px; line-height:1; margin-bottom:12px; }
+  .produto-card .produto-body{ padding-top:24px; }
 </style>
 </head>
 
@@ -2614,13 +2630,18 @@
     <p class="hero-sub">Fabricação e instalação de calhas, rufos, telhados e coberturas. Serviço rápido e com garantia — de quem é 1º lugar como Empresa Destaque na cidade.</p>
     <div class="hero-ctas">
       <a href="#form" class="btn-primary">Pedir orçamento grátis</a>
-      <a href="#" class="btn-secondary" onclick="openWhatsApp('Vim pelo site'); return false;">Falar no WhatsApp</a>
+      <a href="#" class="btn-secondary" onclick="goToForm(); return false;">Falar no WhatsApp</a>
     </div>
     <div class="hero-certs">
       <div class="hero-cert"><span class="cert-icon">🏆</span><div class="cert-text"><span class="cert-name">Empresa Destaque</span><span class="cert-detail">1º lugar · Manaus</span></div></div>
       <div class="hero-cert"><span class="cert-icon">🛡</span><div class="cert-text"><span class="cert-name">Garantia</span><span class="cert-detail">em todo serviço</span></div></div>
     </div>
-    <div class="hero-miniform-wrap">
+  </div>
+</section>
+
+<!-- ORÇAMENTO EXPRESSO (abaixo do hero) -->
+<section class="express-sec"><div class="container">
+  <div class="hero-miniform-wrap">
       <div class="hero-miniform">
         <span class="hero-miniform-label">⚡ Orçamento expresso · resposta em 24h</span>
         <div class="hero-miniform-fields">
@@ -2638,8 +2659,7 @@
         <p class="hero-miniform-help"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Seus dados são protegidos · sem spam · sem compromisso</p>
       </div>
     </div>
-  </div>
-</section>
+</div></section>
 
 <!-- STATS -->
 <section class="stats-bar"><div class="container"><div class="stats-grid">
@@ -2692,69 +2712,63 @@
     </div>
     <div class="produtos-grid">
       <div class="produto-card acc-blue" data-svc="calhas">
-        <div class="produto-img" style="background:linear-gradient(135deg,#1B34B8,#0A0A0A);font-size:72px;">🛠️</div>
-        <div class="produto-body">
+        <div class="produto-body"><div class="svc-ic">🛠️</div>
           <div class="produto-cat">Instalação</div>
           <h3>Calhas</h3>
           <p class="produto-desc">Fabricação e instalação sob medida em alumínio, galvanizado, cobre e PVC.</p>
           <ul class="produto-aplicacoes"><li>Calha de beiral</li><li>Calha embutida</li><li>Pingadeiras</li></ul>
           <div class="produto-price-row"><span class="preco">Sob medida</span><span class="unit">orçamento grátis</span></div>
-          <div class="produto-actions"><a href="#" class="produto-btn-wa" onclick="event.stopPropagation(); openWhatsApp('Quero orçamento de Calhas')">💬 Pedir orçamento</a></div>
+          <div class="produto-actions"><a href="#" class="produto-btn-wa" onclick="event.preventDefault(); event.stopPropagation(); this.closest('.produto-card').click();">💬 Pedir orçamento</a></div>
         </div>
       </div>
 <div class="produto-card acc-green" data-svc="rufos">
-        <div class="produto-img" style="background:linear-gradient(135deg,#13406b,#0A0A0A);font-size:72px;">📐</div>
-        <div class="produto-body">
+        <div class="produto-body"><div class="svc-ic">📐</div>
           <div class="produto-cat">Vedação</div>
           <h3>Rufos &amp; Contra-rufos</h3>
           <p class="produto-desc">Vedam o encontro entre parede e telhado, impedindo a entrada de água.</p>
           <ul class="produto-aplicacoes"><li>Rufos</li><li>Contra-rufos</li><li>Acabamentos</li></ul>
           <div class="produto-price-row"><span class="preco">Sob medida</span><span class="unit">orçamento grátis</span></div>
-          <div class="produto-actions"><a href="#" class="produto-btn-wa" onclick="event.stopPropagation(); openWhatsApp('Quero orçamento de Rufos &amp; Contra-rufos')">💬 Pedir orçamento</a></div>
+          <div class="produto-actions"><a href="#" class="produto-btn-wa" onclick="event.preventDefault(); event.stopPropagation(); this.closest('.produto-card').click();">💬 Pedir orçamento</a></div>
         </div>
       </div>
 <div class="produto-card acc-red" data-svc="telhados">
-        <div class="produto-img" style="background:linear-gradient(135deg,#2E54E8,#0A0A0A);font-size:72px;">🏠</div>
-        <div class="produto-body">
+        <div class="produto-body"><div class="svc-ic">🏠</div>
           <div class="produto-cat">Cobertura</div>
           <h3>Telhados Metálicos</h3>
           <p class="produto-desc">Instalação e reforma de telhados e estruturas, telha sanduíche, zinco e galvalume.</p>
           <ul class="produto-aplicacoes"><li>Telha sanduíche</li><li>Estrutura metálica</li><li>Reforma</li></ul>
           <div class="produto-price-row"><span class="preco">Sob medida</span><span class="unit">orçamento grátis</span></div>
-          <div class="produto-actions"><a href="#" class="produto-btn-wa" onclick="event.stopPropagation(); openWhatsApp('Quero orçamento de Telhados Metálicos')">💬 Pedir orçamento</a></div>
+          <div class="produto-actions"><a href="#" class="produto-btn-wa" onclick="event.preventDefault(); event.stopPropagation(); this.closest('.produto-card').click();">💬 Pedir orçamento</a></div>
         </div>
       </div>
 <div class="produto-card acc-blue" data-svc="impermeabilizacao">
-        <div class="produto-img" style="background:linear-gradient(135deg,#1B34B8,#0A0A0A);font-size:72px;">💧</div>
-        <div class="produto-body">
+        <div class="produto-body"><div class="svc-ic">💧</div>
           <div class="produto-cat">Anti-infiltração</div>
           <h3>Impermeabilização</h3>
           <p class="produto-desc">Impermeabilização de lajes e calhas para acabar com goteiras e infiltrações.</p>
           <ul class="produto-aplicacoes"><li>Lajes</li><li>Calhas</li><li>Áreas críticas</li></ul>
           <div class="produto-price-row"><span class="preco">Sob medida</span><span class="unit">orçamento grátis</span></div>
-          <div class="produto-actions"><a href="#" class="produto-btn-wa" onclick="event.stopPropagation(); openWhatsApp('Quero orçamento de Impermeabilização')">💬 Pedir orçamento</a></div>
+          <div class="produto-actions"><a href="#" class="produto-btn-wa" onclick="event.preventDefault(); event.stopPropagation(); this.closest('.produto-card').click();">💬 Pedir orçamento</a></div>
         </div>
       </div>
 <div class="produto-card acc-yellow" data-svc="coberturas">
-        <div class="produto-img" style="background:linear-gradient(135deg,#2a3a7a,#0A0A0A);font-size:72px;">⛱️</div>
-        <div class="produto-body">
+        <div class="produto-body"><div class="svc-ic">⛱️</div>
           <div class="produto-cat">Áreas externas</div>
           <h3>Coberturas</h3>
           <p class="produto-desc">Coberturas em policarbonato e metálica para garagens, varandas e áreas externas.</p>
           <ul class="produto-aplicacoes"><li>Policarbonato</li><li>Metálica</li><li>Estrutura</li></ul>
           <div class="produto-price-row"><span class="preco">Sob medida</span><span class="unit">orçamento grátis</span></div>
-          <div class="produto-actions"><a href="#" class="produto-btn-wa" onclick="event.stopPropagation(); openWhatsApp('Quero orçamento de Coberturas')">💬 Pedir orçamento</a></div>
+          <div class="produto-actions"><a href="#" class="produto-btn-wa" onclick="event.preventDefault(); event.stopPropagation(); this.closest('.produto-card').click();">💬 Pedir orçamento</a></div>
         </div>
       </div>
 <div class="produto-card acc-green" data-svc="limpeza">
-        <div class="produto-img" style="background:linear-gradient(135deg,#13406b,#0A0A0A);font-size:72px;">🧹</div>
-        <div class="produto-body">
+        <div class="produto-body"><div class="svc-ic">🧹</div>
           <div class="produto-cat">Preventiva</div>
           <h3>Limpeza &amp; Manutenção</h3>
           <p class="produto-desc">Limpeza e manutenção preventiva de calhas entupidas, evitando transbordamento.</p>
           <ul class="produto-aplicacoes"><li>Desentupimento</li><li>Manutenção</li><li>Revisão</li></ul>
           <div class="produto-price-row"><span class="preco">Sob medida</span><span class="unit">orçamento grátis</span></div>
-          <div class="produto-actions"><a href="#" class="produto-btn-wa" onclick="event.stopPropagation(); openWhatsApp('Quero orçamento de Limpeza &amp; Manutenção')">💬 Pedir orçamento</a></div>
+          <div class="produto-actions"><a href="#" class="produto-btn-wa" onclick="event.preventDefault(); event.stopPropagation(); this.closest('.produto-card').click();">💬 Pedir orçamento</a></div>
         </div>
       </div>
 
@@ -2834,12 +2848,6 @@
       <span class="section-eyebrow">Confiança</span>
       <h2 class="section-title">Referência em calhas<br>em <span class="serif">Manaus.</span></h2>
       <p class="section-sub">Equipe especializada em calhas, rufos e telhados metálicos, atendendo Manaus e região com garantia e acabamento de quem é destaque na cidade.</p>
-      <div class="prova-numeros">
-        <div class="prova-num"><div class="big">1<span class="small-unit">º</span></div><div class="desc">Empresa Destaque em Manaus</div></div>
-        <div class="prova-num"><div class="big">6,6<span class="small-unit">mil</span></div><div class="desc">Seguidores no Instagram</div></div>
-        <div class="prova-num"><div class="big">24<span class="small-unit">h</span></div><div class="desc">Resposta no WhatsApp</div></div>
-        <div class="prova-num"><div class="big">100<span class="small-unit">%</span></div><div class="desc">Atende Manaus e região</div></div>
-      </div>
       <a href="https://www.instagram.com/calhasmanaus/" target="_blank" class="prova-cta">Ver nossos trabalhos no Instagram</a>
     </div>
     <div class="parceiros">
@@ -2980,13 +2988,13 @@
       </div>
       <div class="footer-col"><h5>Serviços</h5><ul><li><a href="#servicos">Calhas</a></li><li><a href="#servicos">Rufos</a></li><li><a href="#servicos">Telhados metálicos</a></li><li><a href="#servicos">Impermeabilização</a></li><li><a href="#servicos">Coberturas</a></li><li><a href="#servicos">Limpeza &amp; manutenção</a></li></ul></div>
       <div class="footer-col"><h5>Atendemos</h5><ul><li>Manaus — todos os bairros</li><li>Centro · Adrianópolis · Flores</li><li>Cidade Nova · Ponta Negra</li><li>Iranduba · Manacapuru</li><li>Itacoatiara · região</li></ul></div>
-      <div class="footer-col"><h5>Contato</h5><ul><li><a href="#" onclick="openWhatsApp('Vim pelo site'); return false;">💬 (92) 98481-3748</a></li><li><a href="https://www.instagram.com/calhasmanaus/" target="_blank">📷 @calhasmanaus</a></li><li><span>🕗 Seg a Sáb · 08h–18h</span></li><li><span>📍 Manaus · AM</span></li></ul></div>
+      <div class="footer-col"><h5>Contato</h5><ul><li><a href="#" onclick="goToForm(); return false;">💬 (92) 98481-3748</a></li><li><a href="https://www.instagram.com/calhasmanaus/" target="_blank">📷 @calhasmanaus</a></li><li><span>🕗 Seg a Sáb · 08h–18h</span></li><li><span>📍 Manaus · AM</span></li></ul></div>
     </div>
     <div class="footer-bottom"><span>© 2026 Calhas Manaus · Calhas, Rufos e Telhados · Manaus — AM</span><span>Site por RISE Design &amp; Branding</span></div>
   </div>
 </footer>
 
-<a href="#" class="wa-float" onclick="openWhatsApp('Vim pelo site e quero um orçamento'); return false;">💬</a>
+<a href="#" class="wa-float" onclick="goToForm(); return false;">💬</a>
 
 <script>
 var WA_NUMBER="5592984813748";
