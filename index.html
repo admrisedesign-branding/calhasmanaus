@@ -2576,11 +2576,12 @@ function openServiceForm(svc){ if(svc){preselect('servico',svc);} showStep(2); }
   footer .logo-mark{ height:46px; }
   .hero{ aspect-ratio:16/9; min-height:0 !important; padding:96px 0 26px !important; }
   body.has-topbar .hero{ padding-top:108px !important; }
+  .hero::after{ content:''; position:absolute; left:0; right:0; bottom:0; height:46%; z-index:2; pointer-events:none; background:linear-gradient(to bottom, rgba(12,18,48,0) 50%, #0c1230 100%); }
   @media(max-width:768px){
     .hero{ aspect-ratio:auto; min-height:auto !important; padding:120px 0 46px !important; }
     body.has-topbar .hero{ padding-top:128px !important; }
   }
-  .express-sec{ background:var(--black-soft); padding:30px 0 42px; border-bottom:1px solid var(--border); }
+  .express-sec{ background:linear-gradient(180deg, #0c1230 0%, #0A0A0A 100%); padding:34px 0 58px; border-bottom:none; position:relative; }
   .express-sec .hero-miniform-wrap{ margin-top:0; }
   .produto-card .produto-img{ display:none !important; }
   .svc-ic{ font-size:30px; line-height:1; margin-bottom:12px; }
@@ -2646,7 +2647,7 @@ function openServiceForm(svc){ if(svc){preselect('servico',svc);} showStep(2); }
 <section class="express-sec"><div class="container">
   <div class="hero-miniform-wrap">
       <div class="hero-miniform">
-        <span class="hero-miniform-label">⚡ Orçamento expresso · resposta em 24h</span>
+        <span class="hero-miniform-label">⚡ Atendimento rápido · resposta em 24h</span>
         <div class="hero-miniform-fields">
           <input type="text" id="heroNome" placeholder="Seu nome" autocomplete="name">
           <input type="tel" id="heroWhats" placeholder="(92) 9 8481-3748" maxlength="16" autocomplete="tel">
@@ -2659,7 +2660,7 @@ function openServiceForm(svc){ if(svc){preselect('servico',svc);} showStep(2); }
           </select>
           <button type="button" class="hero-miniform-btn" onclick="submitMiniForm()">Quero orçamento →</button>
         </div>
-        <p class="hero-miniform-help"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Seus dados são protegidos · sem spam · sem compromisso</p>
+        <p class="hero-miniform-help"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Sem compromisso · agendamos sua visita técnica gratuita</p>
       </div>
     </div>
 </div></section>
