@@ -7,12 +7,13 @@
 <meta name="description" content="Fabricação e instalação de calhas, rufos e telhados metálicos em Manaus. Proteja sua casa contra infiltrações. Orçamento grátis em até 24h no WhatsApp.">
 <meta name="keywords" content="calhas manaus, calheiro manaus, rufos manaus, telhado metálico manaus, instalação de calhas, limpeza de calha, impermeabilização manaus">
 <link rel="canonical" href="https://calhasmanaus.com.br/">
+<link rel="icon" type="image/png" href="assets/logo-emblem.png">
 <meta property="og:type" content="website"><meta property="og:locale" content="pt_BR">
 <meta property="og:title" content="Calhas Manaus | Calhas, Rufos e Telhados Metálicos">
 <meta property="og:description" content="Proteja sua casa contra infiltrações. Orçamento grátis em até 24h no WhatsApp.">
-<meta property="og:url" content="https://calhasmanaus.com.br/"><meta property="og:image" content="images/og-calhas.jpg">
+<meta property="og:url" content="https://calhasmanaus.com.br/"><meta property="og:image" content="assets/logo-full.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"RoofingContractor","name":"Calhas Manaus","description":"Especialistas em calhas, rufos e telhados metálicos em Manaus.","telephone":"+5592984813748","priceRange":"$$","areaServed":["Manaus","Iranduba","Manacapuru","Itacoatiara"],"address":{"@type":"PostalAddress","addressLocality":"Manaus","addressRegion":"AM","addressCountry":"BR"},"sameAs":["https://www.instagram.com/calhasmanaus/"],"openingHours":"Mo-Sa 08:00-18:00"}
-function goToForm(){ showStep(1); }
+function goToForm(){ if(isCaptured()){ window.open(savedWa(),"_blank"); } else { showStep(1); } }
 function openServiceForm(svc){ if(svc){preselect('servico',svc);} showStep(2); }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2571,6 +2572,8 @@ function openServiceForm(svc){ if(svc){preselect('servico',svc);} showStep(2); }
   }
 
   /* ===== MELHORIAS (teste) ===== */
+  .logo-mark{ height:40px; width:auto; display:block; border-radius:8px; }
+  footer .logo-mark{ height:46px; }
   .hero{ aspect-ratio:16/9; min-height:0 !important; padding:96px 0 26px !important; }
   body.has-topbar .hero{ padding-top:108px !important; }
   @media(max-width:768px){
@@ -2600,7 +2603,7 @@ function openServiceForm(svc){ if(svc){preselect('servico',svc);} showStep(2); }
 <nav>
   <div class="container">
     <a href="#" class="logo-wrap">
-      <div class="logo-circle" style="background-image:url('images/logo/calhas-manaus.png')"></div>
+      <img class="logo-mark" src="assets/logo-emblem.png" alt="Calhas Manaus">
       <span class="logo-name">Calhas Manaus</span>
     </a>
     <ul>
@@ -2983,7 +2986,7 @@ function openServiceForm(svc){ if(svc){preselect('servico',svc);} showStep(2); }
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="#" class="logo-wrap"><div class="logo-circle" style="background-image:url('images/logo/calhas-manaus.png')"></div><span class="logo-name">Calhas Manaus</span></a>
+        <a href="#" class="logo-wrap"><img class="logo-mark" src="assets/logo-emblem.png" alt="Calhas Manaus"><span class="logo-name">Calhas Manaus</span></a>
         <p style="margin-top:20px;">Especialistas em calhas, rufos e telhados metálicos. Protegendo casas e empresas de Manaus contra infiltrações.</p>
       </div>
       <div class="footer-col"><h5>Serviços</h5><ul><li><a href="#servicos">Calhas</a></li><li><a href="#servicos">Rufos</a></li><li><a href="#servicos">Telhados metálicos</a></li><li><a href="#servicos">Impermeabilização</a></li><li><a href="#servicos">Coberturas</a></li><li><a href="#servicos">Limpeza &amp; manutenção</a></li></ul></div>
@@ -3007,6 +3010,14 @@ var lead={servico:"",imovel:"",metragem:"",urgencia:"",score:0};
 function waLink(msg){return "https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(msg);}
 function openWhatsApp(ctx){window.open(waLink("Olá! "+ (ctx||"") +" — gostaria de um orçamento de calhas/telhado."),"_blank");}
 function closeTopbar(){var t=document.getElementById('topbar');if(t)t.style.display='none';}
+/* ===== Funil: CAPTA antes do WhatsApp (com memória) ===== */
+var _mem={};
+function setFlag(k,v){try{sessionStorage.setItem(k,v);}catch(e){_mem[k]=v;}}
+function getFlag(k){try{var v=sessionStorage.getItem(k);return v!=null?v:(_mem[k]||null);}catch(e){return _mem[k]||null;}}
+function isCaptured(){return getFlag('cm_lead')==='1';}
+function savedWa(extra){var m=getFlag('cm_wamsg');if(m){return waLink(m+(extra?('\n'+extra):''));}return waLink('Ola! '+(extra||'Vim pelo site')+' - gostaria de um orcamento de calhas/telhado.');}
+/* entrada externa (Instagram, Google, anuncios): ?orcamento=1 abre o CAPTA antes */
+(function(){try{var p=new URLSearchParams(location.search);if(p.get('orcamento')==='1'||p.get('wa')==='1'||location.hash==='#orcamento'){setTimeout(function(){showStep(1);},350);}}catch(e){}})();
 
 /* hero slides */
 (function(){var slides=document.querySelectorAll('.hero-slide');var i=0;if(slides.length>1){setInterval(function(){slides[i].classList.remove('active');i=(i+1)%slides.length;slides[i].classList.add('active');},5000);}})();
@@ -3049,7 +3060,7 @@ function preselect(field,val){
 
 /* service cards -> open form */
 document.querySelectorAll('.produto-card').forEach(function(c){
-  c.addEventListener('click',function(){var svc=c.getAttribute('data-svc');if(svc){preselect('servico',svc);showStep(2);}});
+  c.addEventListener('click',function(){var svc=c.getAttribute('data-svc'); if(isCaptured()){ window.open(savedWa(svc?('Quero tambem: '+(SVC_LABEL[svc]||svc)):''),'_blank'); return; } if(svc)preselect('servico',svc); showStep(2);});
 });
 
 /* hero miniform */
@@ -3087,6 +3098,7 @@ function submitForm(){
     "Imovel: "+(IMO_LABEL[lead.imovel]||'-')+(lead.metragem?(" ("+lead.metragem+")"):'')+"\n"+
     "Urgencia: "+(URG_LABEL[lead.urgencia]||'-')+"\n"+
     "Local: "+bairro+" - "+cidade;
+  setFlag('cm_lead','1'); setFlag('cm_wamsg', msg);
   document.getElementById('formSteps').style.display='none';
   document.getElementById('formSuccess').style.display='block';
   document.getElementById('whatsappLink').href=waLink(msg);
