@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Calhas em Manaus | Calhas, Rufos e Telhados Metálicos — Calhas Manaus</title>
 <meta name="description" content="Fabricação e instalação de calhas, rufos e telhados metálicos em Manaus. Proteja sua casa contra infiltrações. Orçamento grátis em até 24h no WhatsApp.">
 <meta name="keywords" content="calhas manaus, calheiro manaus, rufos manaus, telhado metálico manaus, instalação de calhas, limpeza de calha, impermeabilização manaus">
@@ -15,6 +15,29 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"RoofingContractor","name":"Calhas Manaus","description":"Especialistas em calhas, rufos e telhados metálicos em Manaus.","telephone":"+5592984813748","priceRange":"$$","areaServed":["Manaus","Iranduba","Manacapuru","Itacoatiara"],"address":{"@type":"PostalAddress","addressLocality":"Manaus","addressRegion":"AM","addressCountry":"BR"},"sameAs":["https://www.instagram.com/calhasmanaus/"],"openingHours":"Mo-Sa 08:00-18:00"}
 function goToForm(){ if(isCaptured()){ window.open(savedWa(),"_blank"); } else { showStep(1); } }
 function openServiceForm(svc){ if(svc){preselect('servico',svc);} showStep(2); }
+
+/* Header muda de cor ao rolar */
+(function(){var nav=document.querySelector('nav');if(!nav)return;var f=function(){if(window.scrollY>40){nav.classList.add('scrolled');}else{nav.classList.remove('scrolled');}};window.addEventListener('scroll',f,{passive:true});f();})();
+/* Carrossel lateral com dots (mobile) */
+function initCarousels(){
+  if(!window.matchMedia('(max-width:768px)').matches) return;
+  ['.produtos-grid','.pilares-grid','.depoimentos-grid','.mats-grid'].forEach(function(sel){
+    var grid=document.querySelector(sel); if(!grid||grid.dataset.car) return; grid.dataset.car='1';
+    var kids=grid.children; if(kids.length<2) return;
+    var dots=document.createElement('div'); dots.className='car-dots';
+    for(var i=0;i<kids.length;i++){ (function(i){ var b=document.createElement('button'); if(i===0)b.className='on';
+      b.setAttribute('aria-label','Ir para item '+(i+1));
+      b.addEventListener('click',function(){ kids[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'}); });
+      dots.appendChild(b); })(i); }
+    grid.parentNode.insertBefore(dots, grid.nextSibling);
+    var update=function(){ var center=grid.scrollLeft+grid.clientWidth/2, idx=0, best=1e9, i, k, kc, d;
+      for(i=0;i<kids.length;i++){ k=kids[i]; kc=k.offsetLeft+k.offsetWidth/2; d=Math.abs(kc-center); if(d<best){best=d;idx=i;} }
+      var bs=dots.children; for(i=0;i<bs.length;i++){ bs[i].className=(i===idx?'on':''); } };
+    grid.addEventListener('scroll',function(){ window.requestAnimationFrame(update); },{passive:true});
+  });
+}
+initCarousels();
+window.addEventListener('orientationchange',function(){ setTimeout(initCarousels,300); });
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -132,9 +155,10 @@ function openServiceForm(svc){ if(svc){preselect('servico',svc);} showStep(2); }
     transition: all 0.3s;
   }
   nav.scrolled {
-    background: rgba(10, 10, 10, 0.7);
+    background: rgba(10, 10, 10, 0.94);
     backdrop-filter: blur(20px) saturate(150%);
     border-bottom: 1px solid var(--border);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.35);
   }
   nav .container {
     display: flex;
@@ -2583,6 +2607,28 @@ function openServiceForm(svc){ if(svc){preselect('servico',svc);} showStep(2); }
   .produto-card .produto-img{ display:none !important; }
   .svc-ic{ font-size:30px; line-height:1; margin-bottom:12px; }
   .produto-card .produto-body{ padding-top:24px; }
+
+  /* ===== MOBILE UX ===== */
+  html, body { overflow-x: hidden; max-width: 100%; }
+  @media (max-width: 768px){
+    input, select, textarea { font-size: 16px !important; }   /* evita zoom de foco iOS */
+    .hero-badge { white-space: normal; text-align: center; }
+    /* Carrossel lateral com snap */
+    .produtos-grid, .pilares-grid, .depoimentos-grid, .mats-grid{
+      display:flex !important; flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden;
+      scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+      gap:14px; padding-bottom:6px; scrollbar-width:none; scroll-padding-left:4px;
+    }
+    .produtos-grid::-webkit-scrollbar, .pilares-grid::-webkit-scrollbar,
+    .depoimentos-grid::-webkit-scrollbar, .mats-grid::-webkit-scrollbar{ display:none; }
+    .produtos-grid>*, .pilares-grid>*, .depoimentos-grid>*{ flex:0 0 85% !important; scroll-snap-align:center; }
+    .mats-grid>*{ flex:0 0 58% !important; scroll-snap-align:center; }
+    /* dots */
+    .car-dots{ display:flex; justify-content:center; gap:7px; margin-top:18px; }
+    .car-dots button{ width:7px; height:7px; padding:0; border:none; border-radius:50%;
+      background:rgba(140,150,180,.4); transition:all .25s ease; cursor:pointer; }
+    .car-dots button.on{ background:var(--red); width:20px; border-radius:4px; }
+  }
 </style>
 </head>
 
@@ -2777,7 +2823,7 @@ function openServiceForm(svc){ if(svc){preselect('servico',svc);} showStep(2); }
       <h2 class="section-title">O material certo<br>pra <span class="serif">cada obra.</span></h2>
       <p class="section-sub">Indicamos a melhor opção conforme o seu telhado, o clima e o seu orçamento.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:8px;">
+    <div class="mats-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:8px;">
       <div style="background:#fff;border:1px solid #E6E6E6;border-radius:16px;padding:22px 18px;text-align:center;">
         <div style="font-family:'Oswald',sans-serif;font-size:19px;font-weight:600;color:#1B34B8;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;">Alumínio</div>
         <div style="font-size:13px;color:#555;line-height:1.5;">Leve, durável e não enferruja. Ótimo custo-benefício.</div>
