@@ -3032,6 +3032,27 @@ function abrirFunil(origem){ if(origem) LEAD_ORIGEM=origem; goToForm(); }
 var SVC_LABEL={calhas:"Calhas",rufos:"Rufos",telhados:"Telhado metálico",impermeabilizacao:"Impermeabilização",coberturas:"Cobertura",limpeza:"Limpeza/manutenção"};
 var IMO_LABEL={casa:"Casa",sobrado:"Sobrado",comercio:"Comércio",galpao:"Galpão"};
 var URG_LABEL={emergencia:"EMERGÊNCIA (vazando agora)",mes:"Resolver este mês",planejando:"Planejando/orçando",pesquisando:"Pesquisando preço"};
+/* Como o lead se apresenta no WhatsApp — os dados estruturados vao pro Capta,
+   entao aqui a mensagem pode soar como gente, nao como formulario preenchido. */
+var IMO_FRASE={casa:"uma casa",sobrado:"um sobrado",comercio:"um comércio",galpao:"um galpão"};
+var URG_FRASE={emergencia:"É urgente: está vazando agora.",mes:"Queria resolver ainda este mês.",planejando:"Estou planejando a obra e queria um orçamento pra me organizar.",pesquisando:"Por enquanto estou pesquisando preço."};
+function montarMsg(nome,bairro,cidade){
+  var p=(nome||'').trim().split(/\s+/)[0]||'';
+  var svc=(SVC_LABEL[lead.servico]||'').toLowerCase();
+  var imo=IMO_FRASE[lead.imovel]||'';
+  var met=lead.metragem?(' de mais ou menos '+lead.metragem):'';
+  var loc=bairro?(', no bairro '+bairro):'';
+  var cid=(cidade&&cidade.toLowerCase().indexOf('manaus')<0)?(' - '+cidade):'';
+  var l=[];
+  l.push('Oi! Sou '+p+', vim pelo site.');
+  var f='Preciso de '+(svc||'um serviço');
+  if(imo) f+=' em '+imo+met;
+  f+=loc+cid+'.';
+  l.push(f);
+  if(URG_FRASE[lead.urgencia]) l.push(URG_FRASE[lead.urgencia]);
+  l.push(lead.urgencia==='emergencia'?'Consegue me atender hoje?':'Pode me passar um orçamento?');
+  return l.join('\n');
+}
 var lead={servico:"",imovel:"",metragem:"",urgencia:"",score:0};
 
 function waLink(msg){return "https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(msg);}
@@ -3128,12 +3149,7 @@ function submitForm(){
     extra:{bairro:bairro, cidade:cidade, metragem:lead.metragem}
   };
   if(CAPTA_ENDPOINT&&CAPTA_TOKEN){try{fetch(CAPTA_ENDPOINT,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});}catch(e){console.warn('CAPTA',e);}}
-  var msg="*Novo orçamento — site Calhas Manaus*\n"+
-    "Nome: "+nome+"\n"+
-    "Servico: "+(SVC_LABEL[lead.servico]||'-')+"\n"+
-    "Imovel: "+(IMO_LABEL[lead.imovel]||'-')+(lead.metragem?(" ("+lead.metragem+")"):'')+"\n"+
-    "Urgencia: "+(URG_LABEL[lead.urgencia]||'-')+"\n"+
-    "Local: "+bairro+" - "+cidade;
+  var msg=montarMsg(nome,bairro,cidade);
   setFlag('cm_lead','1'); setFlag('cm_wamsg', msg);
   document.getElementById('formSteps').style.display='none';
   document.getElementById('formSuccess').style.display='block';
