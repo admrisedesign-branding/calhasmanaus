@@ -13,27 +13,6 @@
 <meta property="og:description" content="Proteja sua casa contra infiltrações. Orçamento grátis em até 24h no WhatsApp.">
 <meta property="og:url" content="https://calhasmanaus.com.br/"><meta property="og:image" content="assets/logo-full.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"RoofingContractor","name":"Calhas Manaus","description":"Especialistas em calhas, rufos e telhados metálicos em Manaus.","telephone":"+5592984813748","priceRange":"$$","areaServed":["Manaus","Iranduba","Manacapuru","Itacoatiara"],"address":{"@type":"PostalAddress","addressLocality":"Manaus","addressRegion":"AM","addressCountry":"BR"},"sameAs":["https://www.instagram.com/calhasmanaus/"],"openingHours":"Mo-Sa 08:00-18:00"}
-
-/* ---- Porteiro Capta (botão flutuante) ----
-   Se a pessoa JÁ preencheu o formulário do site nesta sessão, vai direto pro
-   WhatsApp — não faz sentido qualificar duas vezes. Se não preencheu, abre o
-   formulário do Capta, que grava o lead com origem "whatsapp".
-   Rede de segurança: leads com o mesmo telefone são fundidos no banco. */
-var CAPTA_PORTEIRO_URL = "https://capta.riseagencia.com/capta.html?t="+CAPTA_SLUG+"&o=whatsapp";
-function captaPorteiro(){
-  if(isCaptured()){ window.open(savedWa(),'_blank'); return; }
-  var ov=document.getElementById('capta-ov'), fr=document.getElementById('capta-if');
-  if(!ov||!fr){ goToForm(); return; }
-  if(!fr.getAttribute('src')) fr.setAttribute('src', CAPTA_PORTEIRO_URL);
-  ov.classList.add('on');
-  document.body.style.overflow='hidden';
-}
-function captaFechar(){
-  var ov=document.getElementById('capta-ov');
-  if(ov) ov.classList.remove('on');
-  document.body.style.overflow='';
-}
-document.addEventListener('keydown',function(e){ if(e.key==='Escape') captaFechar(); });
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2633,12 +2612,6 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape') captaFecha
     .hero h1{ font-size:clamp(32px, 10.5vw, 50px) !important; line-height:1.04 !important; letter-spacing:-0.03em; }
   }
 
-  /* Porteiro Capta */
-  #capta-ov{display:none;position:fixed;inset:0;z-index:2000;background:rgba(5,7,18,.72);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:16px;}
-  #capta-ov.on{display:flex;}
-  #capta-box{position:relative;width:100%;max-width:480px;height:min(86vh,720px);background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.5);}
-  #capta-if{width:100%;height:100%;border:0;display:block;}
-  #capta-cl{position:absolute;top:10px;right:10px;z-index:2;width:34px;height:34px;border:0;border-radius:50%;background:rgba(10,10,10,.55);color:#fff;font-size:15px;cursor:pointer;line-height:1;}
 </style>
 </head>
 
@@ -2679,7 +2652,7 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape') captaFecha
     <p class="hero-sub">Fabricação e instalação de calhas, rufos, telhados e coberturas. Serviço rápido e com garantia — de quem é 1º lugar como Empresa Destaque na cidade.</p>
     <div class="hero-ctas">
       <a href="#form" class="btn-primary">Pedir orçamento grátis</a>
-      <a href="#" class="btn-secondary" onclick="goToForm(); return false;">Falar no WhatsApp</a>
+      <a href="#" class="btn-secondary" onclick="goToForm(); return false;">Pedir orçamento pelo WhatsApp</a>
     </div>
     <div class="hero-certs">
       <div class="hero-cert"><span class="cert-icon">🏆</span><div class="cert-text"><span class="cert-name">Empresa Destaque</span><span class="cert-detail">1º lugar · Manaus</span></div></div>
@@ -3043,21 +3016,19 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape') captaFecha
   </div>
 </footer>
 
-<a href="#" class="wa-float" onclick="captaPorteiro(); return false;" aria-label="Falar no WhatsApp">💬</a>
+<a href="#" class="wa-float" onclick="abrirFunil('whatsapp'); return false;" aria-label="Pedir orçamento pelo WhatsApp">💬</a>
 
 
-<!-- Porteiro Capta: qualifica antes de liberar o WhatsApp -->
-<div id="capta-ov" onclick="if(event.target===this)captaFechar()">
-  <div id="capta-box">
-    <button id="capta-cl" onclick="captaFechar()" aria-label="Fechar">&#10005;</button>
-    <iframe id="capta-if" title="Atendimento" loading="lazy"></iframe>
-  </div>
-</div>
 <script>
 var WA_NUMBER="5592984813748";
 var CAPTA_ENDPOINT="https://capta.riseagencia.com/api/capta-ingest";
 var CAPTA_SLUG="calhas-manaus";
 var CAPTA_TOKEN="c642a2f3c79b671a512f1fb80e3a88cd";  /* cole aqui o token que aparece no admin do Capta (Links do cliente) */
+/* De onde veio o lead: "site" nos CTAs da pagina, "whatsapp" no botao flutuante,
+   ou o que vier na URL (?o=instagram, ?o=google, ?o=anuncio...) */
+var LEAD_ORIGEM="site";
+(function(){try{var o=new URLSearchParams(location.search).get('o');if(o)LEAD_ORIGEM=String(o).slice(0,40);}catch(e){}})();
+function abrirFunil(origem){ if(origem) LEAD_ORIGEM=origem; goToForm(); }
 var SVC_LABEL={calhas:"Calhas",rufos:"Rufos",telhados:"Telhado metálico",impermeabilizacao:"Impermeabilização",coberturas:"Cobertura",limpeza:"Limpeza/manutenção"};
 var IMO_LABEL={casa:"Casa",sobrado:"Sobrado",comercio:"Comércio",galpao:"Galpão"};
 var URG_LABEL={emergencia:"EMERGÊNCIA (vazando agora)",mes:"Resolver este mês",planejando:"Planejando/orçando",pesquisando:"Pesquisando preço"};
@@ -3148,7 +3119,7 @@ function submitForm(){
   var phone=normalizePhone(fone); lead.score=calcScore();
   var payload={
     slug:CAPTA_SLUG, token:CAPTA_TOKEN,
-    nome:nome, contato:phone, origem:"site",
+    nome:nome, contato:phone, origem:LEAD_ORIGEM,
     respostas:[
       {texto:"Qual serviço você precisa?", label:(SVC_LABEL[lead.servico]||"-"), pontos:(lead["_score_servico"]||0)},
       {texto:"Tipo de imóvel",            label:(IMO_LABEL[lead.imovel]||"-"),  pontos:(lead["_score_imovel"]||0)},
