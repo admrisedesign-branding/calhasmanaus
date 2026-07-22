@@ -13,6 +13,27 @@
 <meta property="og:description" content="Proteja sua casa contra infiltrações. Orçamento grátis em até 24h no WhatsApp.">
 <meta property="og:url" content="https://calhasmanaus.com.br/"><meta property="og:image" content="assets/logo-full.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"RoofingContractor","name":"Calhas Manaus","description":"Especialistas em calhas, rufos e telhados metálicos em Manaus.","telephone":"+5592984813748","priceRange":"$$","areaServed":["Manaus","Iranduba","Manacapuru","Itacoatiara"],"address":{"@type":"PostalAddress","addressLocality":"Manaus","addressRegion":"AM","addressCountry":"BR"},"sameAs":["https://www.instagram.com/calhasmanaus/"],"openingHours":"Mo-Sa 08:00-18:00"}
+
+/* ---- Porteiro Capta (botão flutuante) ----
+   Se a pessoa JÁ preencheu o formulário do site nesta sessão, vai direto pro
+   WhatsApp — não faz sentido qualificar duas vezes. Se não preencheu, abre o
+   formulário do Capta, que grava o lead com origem "whatsapp".
+   Rede de segurança: leads com o mesmo telefone são fundidos no banco. */
+var CAPTA_PORTEIRO_URL = "https://capta.riseagencia.com/capta.html?t="+CAPTA_SLUG+"&o=whatsapp";
+function captaPorteiro(){
+  if(isCaptured()){ window.open(savedWa(),'_blank'); return; }
+  var ov=document.getElementById('capta-ov'), fr=document.getElementById('capta-if');
+  if(!ov||!fr){ goToForm(); return; }
+  if(!fr.getAttribute('src')) fr.setAttribute('src', CAPTA_PORTEIRO_URL);
+  ov.classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function captaFechar(){
+  var ov=document.getElementById('capta-ov');
+  if(ov) ov.classList.remove('on');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') captaFechar(); });
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2611,6 +2632,13 @@
     .br-m{ display:block; }
     .hero h1{ font-size:clamp(32px, 10.5vw, 50px) !important; line-height:1.04 !important; letter-spacing:-0.03em; }
   }
+
+  /* Porteiro Capta */
+  #capta-ov{display:none;position:fixed;inset:0;z-index:2000;background:rgba(5,7,18,.72);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:16px;}
+  #capta-ov.on{display:flex;}
+  #capta-box{position:relative;width:100%;max-width:480px;height:min(86vh,720px);background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.5);}
+  #capta-if{width:100%;height:100%;border:0;display:block;}
+  #capta-cl{position:absolute;top:10px;right:10px;z-index:2;width:34px;height:34px;border:0;border-radius:50%;background:rgba(10,10,10,.55);color:#fff;font-size:15px;cursor:pointer;line-height:1;}
 </style>
 </head>
 
@@ -2912,12 +2940,12 @@
             <div class="form-step-label">Etapa 1 de 4 · Serviço</div>
             <h4>Qual serviço você precisa?</h4>
             <div class="form-options" data-field="servico">
-              <button type="button" class="form-option" data-val="calhas" data-score="40"><div class="opt-title">Calhas</div><div class="opt-desc">Instalação / troca</div></button>
-              <button type="button" class="form-option" data-val="rufos" data-score="40"><div class="opt-title">Rufos</div><div class="opt-desc">Vedação do telhado</div></button>
-              <button type="button" class="form-option" data-val="telhados" data-score="50"><div class="opt-title">Telhado metálico</div><div class="opt-desc">Instalação / reforma</div></button>
-              <button type="button" class="form-option" data-val="impermeabilizacao" data-score="45"><div class="opt-title">Impermeabilização</div><div class="opt-desc">Laje / infiltração</div></button>
-              <button type="button" class="form-option" data-val="coberturas" data-score="40"><div class="opt-title">Cobertura</div><div class="opt-desc">Policarbonato / metálica</div></button>
-              <button type="button" class="form-option" data-val="limpeza" data-score="30"><div class="opt-title">Limpeza</div><div class="opt-desc">Manutenção de calha</div></button>
+              <button type="button" class="form-option" data-val="calhas" data-score="7"><div class="opt-title">Calhas</div><div class="opt-desc">Instalação / troca</div></button>
+              <button type="button" class="form-option" data-val="rufos" data-score="7"><div class="opt-title">Rufos</div><div class="opt-desc">Vedação do telhado</div></button>
+              <button type="button" class="form-option" data-val="telhados" data-score="10"><div class="opt-title">Telhado metálico</div><div class="opt-desc">Instalação / reforma</div></button>
+              <button type="button" class="form-option" data-val="impermeabilizacao" data-score="9"><div class="opt-title">Impermeabilização</div><div class="opt-desc">Laje / infiltração</div></button>
+              <button type="button" class="form-option" data-val="coberturas" data-score="8"><div class="opt-title">Cobertura</div><div class="opt-desc">Policarbonato / metálica</div></button>
+              <button type="button" class="form-option" data-val="limpeza" data-score="3"><div class="opt-title">Limpeza</div><div class="opt-desc">Manutenção de calha</div></button>
             </div>
             <button type="button" class="form-submit" onclick="nextStep(1)">Continuar →</button>
           </div>
@@ -2926,10 +2954,10 @@
             <div class="form-step-label">Etapa 2 de 4 · Imóvel</div>
             <h4>Sobre o imóvel</h4>
             <div class="form-options" data-field="imovel">
-              <button type="button" class="form-option" data-val="casa"><div class="opt-title">Casa</div><div class="opt-desc">Residencial</div></button>
-              <button type="button" class="form-option" data-val="sobrado"><div class="opt-title">Sobrado</div><div class="opt-desc">Dois pavimentos</div></button>
-              <button type="button" class="form-option" data-val="comercio"><div class="opt-title">Comércio</div><div class="opt-desc">Loja / sala</div></button>
-              <button type="button" class="form-option" data-val="galpao"><div class="opt-title">Galpão</div><div class="opt-desc">Indústria / grande área</div></button>
+              <button type="button" class="form-option" data-val="casa" data-score="5"><div class="opt-title">Casa</div><div class="opt-desc">Residencial</div></button>
+              <button type="button" class="form-option" data-val="sobrado" data-score="6"><div class="opt-title">Sobrado</div><div class="opt-desc">Dois pavimentos</div></button>
+              <button type="button" class="form-option" data-val="comercio" data-score="8"><div class="opt-title">Comércio</div><div class="opt-desc">Loja / sala</div></button>
+              <button type="button" class="form-option" data-val="galpao" data-score="10"><div class="opt-title">Galpão</div><div class="opt-desc">Indústria / grande área</div></button>
             </div>
             <div class="form-field" style="margin-top:16px;">
               <label>Tamanho aproximado (opcional)</label>
@@ -2952,8 +2980,8 @@
             <h4>Qual a urgência?</h4>
             <div class="form-options" data-field="urgencia">
               <button type="button" class="form-option" data-val="emergencia" data-score="30"><div class="opt-title">🚨 É emergência — está vazando agora</div><div class="opt-desc">Prioridade no atendimento</div></button>
-              <button type="button" class="form-option" data-val="mes" data-score="15"><div class="opt-title">Quero resolver este mês</div></button>
-              <button type="button" class="form-option" data-val="planejando" data-score="5"><div class="opt-title">Estou planejando / orçando</div></button>
+              <button type="button" class="form-option" data-val="mes" data-score="20"><div class="opt-title">Quero resolver este mês</div></button>
+              <button type="button" class="form-option" data-val="planejando" data-score="8"><div class="opt-title">Estou planejando / orçando</div></button>
               <button type="button" class="form-option" data-val="pesquisando" data-score="0"><div class="opt-title">Só pesquisando preço</div></button>
             </div>
             <div style="display:flex;gap:12px;margin-top:8px;">
@@ -3015,11 +3043,21 @@
   </div>
 </footer>
 
-<a href="#" class="wa-float" onclick="goToForm(); return false;">💬</a>
+<a href="#" class="wa-float" onclick="captaPorteiro(); return false;" aria-label="Falar no WhatsApp">💬</a>
 
+
+<!-- Porteiro Capta: qualifica antes de liberar o WhatsApp -->
+<div id="capta-ov" onclick="if(event.target===this)captaFechar()">
+  <div id="capta-box">
+    <button id="capta-cl" onclick="captaFechar()" aria-label="Fechar">&#10005;</button>
+    <iframe id="capta-if" title="Atendimento" loading="lazy"></iframe>
+  </div>
+</div>
 <script>
 var WA_NUMBER="5592984813748";
-var CAPTA_ENDPOINT="";  /* cole a URL da API do CAPTA aqui */
+var CAPTA_ENDPOINT="https://capta.riseagencia.com/api/capta-ingest";
+var CAPTA_SLUG="calhas-manaus";
+var CAPTA_TOKEN="";  /* cole aqui o token que aparece no admin do Capta (Links do cliente) */
 var SVC_LABEL={calhas:"Calhas",rufos:"Rufos",telhados:"Telhado metálico",impermeabilizacao:"Impermeabilização",coberturas:"Cobertura",limpeza:"Limpeza/manutenção"};
 var IMO_LABEL={casa:"Casa",sobrado:"Sobrado",comercio:"Comércio",galpao:"Galpão"};
 var URG_LABEL={emergencia:"EMERGÊNCIA (vazando agora)",mes:"Resolver este mês",planejando:"Planejando/orçando",pesquisando:"Pesquisando preço"};
@@ -3052,7 +3090,7 @@ document.querySelectorAll('.form-options').forEach(function(grid){
     });
   });
 });
-function calcScore(){return (lead['_score_servico']||0)+(lead['_score_urgencia']||0);}
+function calcScore(){return (lead['_score_servico']||0)+(lead['_score_imovel']||0)+(lead['_score_urgencia']||0);}
 
 function showStep(n){
   document.querySelectorAll('.form-step-content').forEach(function(s){s.style.display=(parseInt(s.getAttribute('data-step'))===n)?'block':'none';});
@@ -3108,8 +3146,17 @@ function submitForm(){
   lead.metragem=document.getElementById('metragem').value;
   if(!nome||!fone||!bairro){showError('Preencha nome, WhatsApp e bairro.');return;}
   var phone=normalizePhone(fone); lead.score=calcScore();
-  var payload={nome:nome,whatsapp:phone,bairro:bairro,cidade:cidade,servico:lead.servico,tipo_imovel:lead.imovel,metragem:lead.metragem,urgencia:lead.urgencia,score:lead.score,origem:"site-calhasmanaus",data:new Date().toISOString()};
-  if(CAPTA_ENDPOINT){try{fetch(CAPTA_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});}catch(e){console.warn('CAPTA',e);}}
+  var payload={
+    slug:CAPTA_SLUG, token:CAPTA_TOKEN,
+    nome:nome, contato:phone, origem:"site",
+    respostas:[
+      {texto:"Qual serviço você precisa?", label:(SVC_LABEL[lead.servico]||"-"), pontos:(lead["_score_servico"]||0)},
+      {texto:"Tipo de imóvel",            label:(IMO_LABEL[lead.imovel]||"-"),  pontos:(lead["_score_imovel"]||0)},
+      {texto:"Qual a urgência?",          label:(URG_LABEL[lead.urgencia]||"-"), pontos:(lead["_score_urgencia"]||0)}
+    ],
+    extra:{bairro:bairro, cidade:cidade, metragem:lead.metragem}
+  };
+  if(CAPTA_ENDPOINT&&CAPTA_TOKEN){try{fetch(CAPTA_ENDPOINT,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});}catch(e){console.warn('CAPTA',e);}}
   var msg="*Novo orçamento — site Calhas Manaus*\n"+
     "Nome: "+nome+"\n"+
     "Servico: "+(SVC_LABEL[lead.servico]||'-')+"\n"+
