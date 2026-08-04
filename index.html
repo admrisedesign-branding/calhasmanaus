@@ -3020,7 +3020,15 @@ var CAPTA_TOKEN="c642a2f3c79b671a512f1fb80e3a88cd";  /* cole aqui o token que ap
    ou o que vier na URL (?o=instagram, ?o=google, ?o=anuncio...) */
 var LEAD_ORIGEM="site";
 (function(){try{var o=new URLSearchParams(location.search).get('o');if(o)LEAD_ORIGEM=String(o).slice(0,40);}catch(e){}})();
-function abrirFunil(origem){ if(origem) LEAD_ORIGEM=origem; goToForm(); }
+function abrirFunil(origem){
+  // Botão flutuante de WhatsApp: leva ao formulário do Capta (intermediador),
+  // que qualifica em 4 etapas e só então joga pro WhatsApp.
+  if(origem==='whatsapp'){
+    location.href = 'https://capta.riseagencia.com/capta.html?t=' + CAPTA_SLUG + '&o=whatsapp';
+    return;
+  }
+  if(origem) LEAD_ORIGEM=origem; goToForm();
+}
 var SVC_LABEL={calhas:"Calhas",rufos:"Rufos",telhados:"Telhado metálico",impermeabilizacao:"Impermeabilização",coberturas:"Cobertura",limpeza:"Limpeza/manutenção"};
 var IMO_LABEL={casa:"Casa",sobrado:"Sobrado",comercio:"Comércio",galpao:"Galpão"};
 var URG_LABEL={emergencia:"EMERGÊNCIA (vazando agora)",mes:"Resolver este mês",planejando:"Planejando/orçando",pesquisando:"Pesquisando preço"};
